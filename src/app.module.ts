@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { PassportModule } from '@nestjs/passport';
+import { AuthnGuard } from './authn.guard';
+import { AuthnStrategy } from './authn.strategy';
 import { HelloResolver } from './hello.resolver';
 
 @Module({
@@ -12,6 +14,6 @@ import { HelloResolver } from './hello.resolver';
     PassportModule
   ],
   controllers: [],
-  providers: [HelloResolver],
+  providers: [AuthnGuard, AuthnStrategy, HelloResolver],
 })
 export class AppModule {}
