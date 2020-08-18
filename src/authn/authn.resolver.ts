@@ -3,13 +3,7 @@ import { Query, Resolver } from "@nestjs/graphql";
 import { AuthnGuard } from "./authn.guard";
 
 @Resolver(() => String)
-export class HelloResolver {
-  
-  @Query(() => String)
-  unauthn(): string {
-    return 'Hello unauthenticated world'
-  }
-
+export class AuthnResolver {
   @UseGuards(AuthnGuard)
   @Query(() => String)
   authn(): string {
