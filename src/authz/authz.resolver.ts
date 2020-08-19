@@ -1,12 +1,17 @@
-import { UseGuards } from "@nestjs/common";
 import { Query, Resolver } from "@nestjs/graphql";
-import { AuthzGuard } from "./authz.guard";
+import { Scoped } from "./scoped.decorator";
 
 @Resolver(() => String)
 export class AuthzResolver {
-  @UseGuards(AuthzGuard)
+  @Scoped()
   @Query(() => String)
-  authn(): string {
-    return 'Hello authorized World'
+  getContentById(): string {
+    return 'Hello from getContentById'
+  }
+
+  @Scoped()
+  @Query(() => String)
+  listContents(): string {
+    return 'Hello from listContents'
   }
 }

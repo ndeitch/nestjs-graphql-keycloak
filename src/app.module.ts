@@ -4,7 +4,10 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthnGuard } from './authn/authn.guard';
 import { AuthnResolver } from './authn/authn.resolver';
 import { AuthnStrategy } from './authn/authn.strategy';
+import { AuthzGuard } from './authz/authz.guard';
+import { AuthzResolver } from './authz/authz.resolver';
 import { PublicResolver } from './public/public.resolver';
+import { AuthzStrategy } from './authz/authz.strategy';
 
 @Module({
   imports: [
@@ -15,6 +18,6 @@ import { PublicResolver } from './public/public.resolver';
     PassportModule
   ],
   controllers: [],
-  providers: [AuthnGuard, AuthnStrategy, AuthnResolver, PublicResolver],
+  providers: [AuthnGuard, AuthzGuard, AuthnStrategy, AuthzStrategy, AuthnResolver, AuthzResolver, PublicResolver],
 })
 export class AppModule {}
