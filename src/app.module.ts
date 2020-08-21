@@ -9,6 +9,8 @@ import { AuthnStrategy } from './authn/authn.strategy';
 import { AuthzGuard } from './authz/authz.guard';
 import { AuthzResolver } from './authz/authz.resolver';
 import { AuthzStrategy } from './authz/authz.strategy';
+import { Oauth2Controller } from './oauth2/oauth2.controller';
+import { Oauth2Strategy } from './oauth2/oauth2.strategy';
 import { PublicResolver } from './public/public.resolver';
 
 @Module({
@@ -22,7 +24,7 @@ import { PublicResolver } from './public/public.resolver';
     }),
     PassportModule
   ],
-  controllers: [],
-  providers: [AuthnGuard, AuthzGuard, AuthnStrategy, AuthzStrategy, AuthnResolver, AuthzResolver, PublicResolver],
+  controllers: [Oauth2Controller],
+  providers: [AuthnGuard, AuthzGuard, AuthnStrategy, AuthzStrategy, AuthnResolver, AuthzResolver, PublicResolver, Oauth2Strategy],
 })
 export class AppModule {}
