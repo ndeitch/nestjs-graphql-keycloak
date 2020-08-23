@@ -1,17 +1,29 @@
-import { Query, Resolver } from "@nestjs/graphql";
+import { Args, Query, Resolver } from "@nestjs/graphql";
 import { Scoped } from "./scoped.decorator";
 
 @Resolver(() => String)
 export class AuthzResolver {
   @Scoped()
   @Query(() => String)
-  getContentById(): string {
-    return 'Hello from getContentById'
+  createContent(): string {
+    return 'Hello from createContent'
   }
 
-  @Scoped()
+  @Scoped({ resourceId: 'id' })
   @Query(() => String)
-  listContents(): string {
-    return 'Hello from listContents'
+  deleteContent(@Args('id', { type: () => String }) id: string): string {
+    return `You've scope=${id}:deleteContent`
+  }
+
+  @Scoped({ resourceId: 'id' })
+  @Query(() => String)
+  getContent(@Args('id', { type: () => String }) id: string): string {
+    return `You've scope=${id}:getContent`
+  }
+
+  @Scoped({ resourceId: 'id' })
+  @Query(() => String)
+  updateContentTitle(@Args('id', { type: () => String }) id: string): string {
+    return `You've scope=${id}:updateContentTitle`
   }
 }

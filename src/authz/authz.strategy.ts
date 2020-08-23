@@ -22,11 +22,11 @@ export class AuthzStrategy extends PassportStrategy(Strategy, 'authz') {
   }
 
   async validate(req: Request): Promise<boolean> {
-    const scope = (req as any).scope
+    const { scope, resource } = req as any
 
     if (!scope) return true
     
-    const permissionExpected = `${this.resource}:${scope}`
+    const permissionExpected = `${resource ? resource : this.resource}:${scope}`
     
     const enforcerFn = this.keycloak.enforcer(permissionExpected, { response_mode: 'token' })
     
@@ -37,7 +37,7 @@ export class AuthzStrategy extends PassportStrategy(Strategy, 'authz') {
       })
       return true
     } catch (error) {
-      throw new ForbiddenError(`Missing required '${permissionExpected}' scope`)
+      throw new ForbiddenError(`Missing required ${permissionExpected} permission`)
     }
   }
 }

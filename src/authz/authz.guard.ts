@@ -10,11 +10,14 @@ export class AuthzGuard extends AuthGuard('authz') {
   }
 
   getRequest(context: ExecutionContext): unknown {
-    const req = GqlExecutionContext.create(context).getContext().req
+    const graphqlContext = GqlExecutionContext.create(context)
+    const req = graphqlContext.getContext().req
 
     const isScoped = this.reflector.get<boolean>('scoped', context.getHandler())
-
     if (isScoped) req.scope = context.getHandler().name
+
+    const resourceArgKey = this.reflector.get<string>('resourceId', context.getHandler())
+    if (resourceArgKey) req.resource = graphqlContext.getArgs()[resourceArgKey]
 
     return req
   }

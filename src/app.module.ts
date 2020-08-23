@@ -21,6 +21,7 @@ import { PublicResolver } from './public/public.resolver';
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
+      exclude: ['/graphql*'],
     }),
     PassportModule
   ],
